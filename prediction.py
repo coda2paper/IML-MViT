@@ -38,7 +38,7 @@ plt.rcParams['font.size'] = 10
 plt.rcParams['figure.figsize'] = (24, 6)
 
 # here we use mani dataset as example
-input_dir = "./dataset/casia1/"
+input_dir = "./dataset/casia/"
 
 test_transform = utils.iml_transforms.get_albu_transforms('test')
 dataset = mani_dataset(
@@ -54,7 +54,7 @@ print(f":ength of this dataset: {len(dataset)}")
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 args = get_args_parser()
 args = args.parse_args()
-ckpt_path = "./output_dir/checkpoint-199.pth"  # checkpoints/iml-vit_checkpoint
+ckpt_path = "./output_dir/checkpoint.pth"  # checkpoints/iml-vit_checkpoint
 args = get_args_parser()
 args = args.parse_args()
 model = iml_vit_model.iml_vit_model(
