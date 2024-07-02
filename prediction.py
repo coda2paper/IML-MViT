@@ -11,7 +11,7 @@ import utils.misc as misc
 import numpy as np
 import iml_vit_model
 import utils.evaluation as evaluation
-from main_train import get_args_parser
+
 
 def cal_precise_AUC_with_shape(predict, target, shape):
     predict2 = predict[0][0][:shape[0], :shape[1]]
@@ -52,21 +52,18 @@ print(f":ength of this dataset: {len(dataset)}")
 
 # Check if GPU is available
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-args = get_args_parser()
-args = args.parse_args()
-ckpt_path = "./output_dir/checkpoint.pth"  # checkpoints/iml-vit_checkpoint
+ckpt_path = "./checkpoints/checkpoint.pth"  # checkpoints/iml-vit_checkpoint
 args = get_args_parser()
 args = args.parse_args()
 model = iml_vit_model.iml_vit_model(
-    vit_pretrain_path=args.vit_pretrain_path,
-    predict_head_norm=args.predict_head_norm,
-    edge_lambda=args.edge_lambda
+    vit_pretrain_path='./checkpoints/mae_pretrain_vit_base.pth',
+    predict_head_norm='BN',
+    edge_lambda=20
 )
 checkpoint = torch.load(ckpt_path, map_location='cpu')
 model.load_state_dict(checkpoint['model'])
 model = model.to(device)
 ### Inference
-# This process require your GPU has at least 6GB of memory.
 results = []
 local_f1s = 0
 AUCs = 0
