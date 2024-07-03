@@ -1,4 +1,4 @@
-# This is the implementation of our paper：IML-MViT
+# This is the implementation of our paper：MEViT
 
 ## Our environment
 CUDA 11.3<br>
